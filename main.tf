@@ -145,7 +145,7 @@ resource "aws_route_table_association" "subnet-association" {
 
 //security.tf
 resource "aws_security_group" "terraform-poc-sg"  {
-name = "terraform-poc-sg"
+name = "allow-all-sg"
 vpc_id = aws_vpc.terraform-poc-vpc.id
 ingress {
     cidr_blocks = [
@@ -165,6 +165,7 @@ ingress {
     protocol = "tcp"
 }
   
+  // Terraform removes the default rule
   egress {
    from_port = 0
    to_port = 0
@@ -209,10 +210,14 @@ resource "aws_instance" "terraform-poc-ec2-instance-2" {
     EOF
 }
 
-output  "terraform-poc-ec2-instance-1-public-hostname" {
-    value = aws_instance.terraform-poc-ec2-instance-2.public_dns
+output  "terraform-poc-ec2-instance-1-dns" {
+    value = aws_eip.terraform-poc-eip-1.public_dns
 }
 
-output  "terraform-poc-ec2-instance-2-public-hostname" {
-    value = aws_instance.terraform-poc-ec2-instance-2.public_dns
+output  "terraform-poc-ec2-instance-2-dns" {
+    value = aws_eip.terraform-poc-eip-2.public_dns
+}
+
+output  "terraform-poc-lb-dns" {
+    value = aws_lb.terraform-poc-lb.dns_name
 }

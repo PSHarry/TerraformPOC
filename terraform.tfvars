@@ -1,2 +1,2 @@
-instance_name_1 = "Alfa"
-instance_name_2 = "Beta"
+instance_name_1 = "Piątek"
+instance_name_2 = "Piątunio"
